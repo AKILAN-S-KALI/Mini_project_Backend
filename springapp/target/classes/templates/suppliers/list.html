@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suppliers - Food Order System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Food Order System</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="/products">Products</a>
+                <a class="nav-link" href="/suppliers">Suppliers</a>
+                <a class="nav-link" href="/purchase-orders">Orders</a>
+                <a class="nav-link" href="/returns">Returns</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Suppliers</h2>
+            <a href="/suppliers/new" class="btn btn-success">Add New Supplier</a>
+        </div>
+
+        <div th:if="${message}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${message}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="supplier : ${suppliers}">
+                        <td th:text="${supplier.id}"></td>
+                        <td th:text="${supplier.supplierName}"></td>
+                        <td th:text="${supplier.contactNumber}"></td>
+                        <td th:text="${supplier.email}"></td>
+                        <td th:text="${supplier.address}"></td>
+                        <td>
+                            <a th:href="@{/suppliers/edit/{id}(id=${supplier.id})}" class="btn btn-sm btn-warning">Edit</a>
+                            <a th:href="@{/suppliers/delete/{id}(id=${supplier.id})}" 
+                               class="btn btn-sm btn-danger" 
+                               onclick="return confirm('Are you sure you want to delete this supplier?')">Delete</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(suppliers)}">
+                        <td colspan="6" class="text-center">No suppliers found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

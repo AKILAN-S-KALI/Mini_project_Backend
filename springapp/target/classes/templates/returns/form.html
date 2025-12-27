@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${customerReturn.customerReturnId == 0 ? 'Add Return' : 'Edit Return'} + ' - Food Order System'"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Food Order System</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="/products">Products</a>
+                <a class="nav-link" href="/suppliers">Suppliers</a>
+                <a class="nav-link" href="/purchase-orders">Orders</a>
+                <a class="nav-link" href="/returns">Returns</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 th:text="${customerReturn.customerReturnId == 0 ? 'Add New Return' : 'Edit Return'}"></h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/returns/save}" th:object="${customerReturn}" method="post">
+                            <input type="hidden" th:field="*{customerReturnId}">
+                            
+                            <div class="mb-3">
+                                <label for="productId" class="form-label">Product</label>
+                                <select class="form-control" name="productId" required>
+                                    <option value="">Select Product</option>
+                                    <option th:each="product : ${products}" 
+                                            th:value="${product.productId}" 
+                                            th:text="${product.productName}"
+                                            th:selected="${customerReturn.product != null && customerReturn.product.productId == product.productId}"></option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="quantity" class="form-label">Quantity</label>
+                                <input type="number" class="form-control" th:field="*{quantity}" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="reason" class="form-label">Reason</label>
+                                <textarea class="form-control" th:field="*{reason}" rows="3" required></textarea>
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="/returns" class="btn btn-secondary me-md-2">Cancel</a>
+                                <button type="submit" class="btn btn-danger">Save Return</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
