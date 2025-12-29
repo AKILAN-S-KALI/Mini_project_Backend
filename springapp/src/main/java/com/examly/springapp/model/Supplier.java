@@ -2,6 +2,7 @@ package com.examly.springapp.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class Supplier {
     private String supplierName;
     private String contactNumber;
     private String email;
+    @Column(length = 1000)
     private String address;
 
     public Supplier() {

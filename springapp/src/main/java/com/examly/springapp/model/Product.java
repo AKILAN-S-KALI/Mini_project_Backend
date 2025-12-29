@@ -1,5 +1,6 @@
 package com.examly.springapp.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +13,7 @@ public class Product {
     private long productId;
 
     private String productName;
+    @Column(length = 1000)
     private String description;
     private Double price;
     private Integer stockQuantity;
